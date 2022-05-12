@@ -1,0 +1,36 @@
+= Service API
+
+== Get balance
+
+The request has no parameters
+
+.request
+include::{snippets}/get-ok/httpie-request.adoc[]
+
+
+The response contains the current balance amount:
+
+.response
+include::{snippets}/get-ok/http-response.adoc[]
+
+== Update balance
+
+The update contains a new amount:
+
+.request
+include::{snippets}/update-ok/httpie-request.adoc[]
+
+.response
+include::{snippets}/update-ok/http-response.adoc[]
+
+=== Errors
+
+Negative amount is not allowed:
+
+.request
+include::{snippets}/update-nok/httpie-request.adoc[]
+
+The response is bad request in this case
+
+.response
+include::{snippets}/update-nok/http-response.adoc[]

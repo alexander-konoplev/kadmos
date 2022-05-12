@@ -1,0 +1,46 @@
+server:
+  port: 8080
+
+spring:
+  main:
+    web-application-type: reactive
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      httpclient:
+        response-timeout: 5s
+      routes:
+        - id: savingsA
+          uri: http://savings-a:8080
+          predicates:
+            - Path=/savings/a/**
+          filters:
+            - RewritePath=/savings/a/(?<postfix>.*), /$\{postfix}
+
+        - id: savingsB
+          uri: http://savings-b:8080
+          predicates:
+            - Path=/savings/b/**
+          filters:
+            - RewritePath=/savings/b/(?<postfix>.*), /$\{postfix}
+
+#  security:
+#    oauth2:
+#      resourceserver:
+#        opaquetoken:
+#          introspection-uri: http://localhost:8080/auth/introspect
+#          client-id: api-client
+#          client-secret: p@ssw0rd
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: httptrace
+  endpoint:
+    loggers:
+      enabled: true
+  trace:
+    http:
+      include: REQUEST_HEADERS, AUTHORIZATION_HEADER, REMOTE_ADDRESS

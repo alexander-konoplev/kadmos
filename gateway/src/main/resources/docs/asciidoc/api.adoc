@@ -1,0 +1,20 @@
+= Gateway API
+
+The gateway is just a proxy. It proxying the requests as is to the corresponding services. So, for detailed description take a look at the service's API.
+
+== Get balance example
+
+This is how request is passes.
+
+.request
+include::{snippets}/get-ok/httpie-request.adoc[]
+
+
+The response contains the current balance amount which is received from the internal server:
+
+.response
+include::{snippets}/get-ok/http-response.adoc[]
+
+=== Errors
+
+In case the internal service doesn't reply during configured timeout (5s) the gateway responses with 504 error.
